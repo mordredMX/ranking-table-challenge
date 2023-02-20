@@ -31,7 +31,11 @@ public class LeagueRankingCommandLine {
   public static void main(String[] args) {
     LOG.info("Application starting");
     LeagueRankingCommandLine app = new LeagueRankingCommandLine(new LeagueRankingFactory());
-    app.runCommandLine(System.out, System.err, System.in);
+    try {
+      app.runCommandLine(System.out, System.err, System.in);
+    } catch(Exception e) {
+      LOG.error("unexpected error", e);
+    }
   }
 
   /**

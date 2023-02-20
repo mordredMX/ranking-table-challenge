@@ -18,7 +18,6 @@ class GameResultTest {
     assertNotNull(homeTeamScore);
     assertGameTeamScore(awayTeamScore, "the jackson's 5", 4, 3);
     assertGameTeamScore(homeTeamScore,"Mambo 1 2 3", 3, 0);
-    System.out.println(gameResult);
   }
 
   @Test
@@ -31,7 +30,6 @@ class GameResultTest {
     assertNotNull(homeTeamScore);
     assertGameTeamScore(homeTeamScore,"3 Pigs", 0, 0);
     assertGameTeamScore(awayTeamScore, "11 Monkeys", 2, 3);
-    System.out.println(gameResult);
   }
 
   @Test
@@ -44,7 +42,6 @@ class GameResultTest {
     assertNotNull(homeTeamScore);
     assertGameTeamScore(homeTeamScore,"The Rats", 3, 1);
     assertGameTeamScore(awayTeamScore, "The Mice", 3, 1);
-    System.out.println(gameResult);
   }
 
   void assertGameTeamScore(GameTeamScore teamScore, String teamName, int goals, int points) {

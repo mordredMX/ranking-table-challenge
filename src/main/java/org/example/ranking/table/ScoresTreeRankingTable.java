@@ -2,10 +2,12 @@ package org.example.ranking.table;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
 
 /**
  * @author obarenque
@@ -45,7 +47,15 @@ public class ScoresTreeRankingTable implements RankingTable{
    * @param points the points to be added to the team
    */
   @Override
-  public void addTeamPoints(String teamName, int points) {
+  public void addTeamPoints(String teamName, int points) throws  RankingTableException{
+    Objects.requireNonNull(teamName, "team name cannot be null");
+    if (teamName.isBlank()) {
+      throw new RankingTableException("team name cannot be blank");
+    }
+    teamName = teamName.trim();
+    if (points < 0) {
+      throw new RankingTableException("team points cannot be negative");
+    }
     int totalPoints = points;
     Integer existingPoints = teamScores.get(teamName);
     if (existingPoints != null) {

@@ -14,7 +14,7 @@ public interface RankingTable {
    * @param team team name
    * @param points points to be added
    */
-  void addTeamPoints(String team, int points);
+  void addTeamPoints(String team, int points) throws RankingTableException;
 
   /**
    * get the ranking table representation
