@@ -7,7 +7,7 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class LeagueRankingManagerTest {
+class LeagueRankingManagerIntTest {
 
   private final LeagueRankingFactory leagueRankingFactory = new LeagueRankingFactory();
 
@@ -28,12 +28,11 @@ class LeagueRankingManagerTest {
 
   @Test
   void testNominalCase() {
-    manager.computeMatchScoreLine("Lions 3, Snakes 3");
-    manager.computeMatchScoreLine("Tarantulas 1, FC Awesome 0");
-    manager.computeMatchScoreLine("Lions 1, FC Awesome 1");
-    manager.computeMatchScoreLine("Tarantulas 3, Snakes 1");
-    manager.computeMatchScoreLine("Lions 4, Grouches 0");
-    StringBuilder sb = new StringBuilder();
+    manager.computeGameResultLine("Lions 3, Snakes 3");
+    manager.computeGameResultLine("Tarantulas 1, FC Awesome 0");
+    manager.computeGameResultLine("Lions 1, FC Awesome 1");
+    manager.computeGameResultLine("Tarantulas 3, Snakes 1");
+    manager.computeGameResultLine("Lions 4, Grouches 0");
     final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     manager.printRankingTable(printStream);

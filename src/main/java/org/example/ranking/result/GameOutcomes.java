@@ -1,6 +1,7 @@
 package org.example.ranking.result;
 
 /**
+ * @author obarenque
  * possible outcomes of a game and the points assigned to home and away teams.
  */
 enum GameOutcomes {
@@ -28,10 +29,18 @@ enum GameOutcomes {
     return  homeGoals > awayGoals ? HOME_VICTORY : AWAY_VICTORY;
   }
 
+  /**
+   * points assigned to home team based on the outcome of the game
+   * @return home points
+   */
   int getHomePoints () {
     return homePoints;
   }
 
+  /**
+   * points assigned to away team based on the outcome of the game
+   * @return home points
+   */
   int getAwayPoints () {
     return awayPoints;
   }

@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * @author obarenque
  * a game result representation which is form by two teams: home team and away team
  * plus the goals each team scored, internally it calculates the points that must be
  *  assigned to the team based on the outcome of the game.

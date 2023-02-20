@@ -1,10 +1,15 @@
 package org.example.ranking.manager;
 
 import java.io.PrintStream;
+import java.util.SortedSet;
 import org.example.ranking.result.GameResult;
 import org.example.ranking.table.RankingTable;
-import org.example.ranking.table.TeamStandings;
 
+/**
+ * @author obarenque
+ *  masks business logic related to adding game results
+ *  and print the ranking table
+ */
 public class LeagueRankingManager {
 
   private final RankingTable rankingTable;
@@ -18,15 +23,16 @@ public class LeagueRankingManager {
   }
 
   /**
-   * computes a match score:
-   * @param matchScoreValue line
+   * computes a game result in text representation,
+   * will be added to the ranking table.
+   * @param gameResultLine text line of a game result
    */
-  public void computeMatchScoreLine(String matchScoreValue) {
-    GameResult matchScore = GameResult.from(matchScoreValue);
+  public void computeGameResultLine(String gameResultLine) {
+    GameResult matchScore = GameResult.from(gameResultLine);
     var homeTeamScore = matchScore.getAwayTeamScore();
     var awayTeamScore = matchScore.getHomeTeamScore();
-    rankingTable.addPoints(homeTeamScore.team(), homeTeamScore.points());
-    rankingTable.addPoints(awayTeamScore.team(), awayTeamScore.points());
+    rankingTable.addTeamPoints(homeTeamScore.team(), homeTeamScore.points());
+    rankingTable.addTeamPoints(awayTeamScore.team(), awayTeamScore.points());
   }
 
   /**
@@ -37,9 +43,10 @@ public class LeagueRankingManager {
     int rank = 1;
     int prevPoints = -1;
     int prevRank = -1;
-    for (TeamStandings teamScore: rankingTable.getTeamsRanking()) {
-      int currentScore = teamScore.getPoints();
-      String pointLbl = teamScore.getPoints() == 1 ? POINT :  POINTS;
+    for (var scoreEntry: rankingTable.getRanking().entrySet()) {
+      int currentScore = scoreEntry.getKey();
+      SortedSet<String> teams = scoreEntry.getValue();
+      String pointLbl = currentScore == 1 ? POINT : POINTS;
       int rankLbl;
       if (prevPoints == currentScore) {
         rankLbl = prevRank;
@@ -47,10 +54,10 @@ public class LeagueRankingManager {
         rankLbl = rank;
         prevRank = rank;
       }
-      printStream.printf("%d. %s, %d %s%n",
-          rankLbl, teamScore.getName(), currentScore, pointLbl);
-      rank++;
-      prevPoints = teamScore.getPoints();
+      teams.forEach(team -> printStream.printf("%d. %s, %d %s%n",
+          rankLbl, team, currentScore, pointLbl));
+      rank = rank + teams.size();
+      prevPoints = currentScore;
     }
   }
 
